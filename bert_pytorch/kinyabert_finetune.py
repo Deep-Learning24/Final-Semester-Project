@@ -143,6 +143,7 @@ def main():
     total_bleu = 0
     #total_rouge = 0
     best_bleu = 0
+    best_loss = np.inf
     
     config = {  
         "epochs": args.epochs,
@@ -231,8 +232,8 @@ def main():
         reference = " ".join(decode(tokenizer, labels.squeeze().tolist()))
     
         bleu_score = calculate_bleu(reference, candidate)
-        if bleu_score > best_bleu:
-            best_bleu = bleu_score
+        if best_loss > train_loss:
+            best_loss = train_loss
             torch.save(model.state_dict(), f"{args.output_path}_epoch_{epoch}.pth")
             gc.collect()
             print(f"Model saved at epoch {epoch}")
