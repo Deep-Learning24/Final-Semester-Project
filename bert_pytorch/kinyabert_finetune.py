@@ -34,7 +34,7 @@ def collate_fn(batch):
                 'token_type_ids': torch.empty((0, sequence_length), dtype=torch.long), 
                 'labels': torch.empty((0,), dtype=torch.long)}
 
-    # Rest of the function...
+   
 
     # Collate the input tensors
     input_ids = torch.stack([item[0] for item in batch])
@@ -238,7 +238,7 @@ def main():
             gc.collect()
             print(f"Model saved at epoch {epoch}")
     
-        wandb.log({"training_loss": train_loss, "train perplexity": perplexity})
+        wandb.log({"training_loss": train_loss, "train perplexity": perplexity, "bleu_score": bleu_score})
     
         # # Evaluate the model on the validation data
         # model.eval()
